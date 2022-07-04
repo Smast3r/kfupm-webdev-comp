@@ -18,18 +18,20 @@ const PlanContainer = (props:Props)=>{
     const addTerm:any= (e:Event) => {
 
         e.preventDefault()
-        if (term)
+        if (term){
+        let tempArray = terms?[...terms,term]:[term]
         setTerms(
-           ...terms,term
+           tempArray
         )
         
+        }
        }
     const handleChange = (Event:ChangeEvent<HTMLInputElement>)=>{
         setTerm({...term ,termNumber:Number(Event?.target?.value)})
     }
     
     useEffect(()=>{
-        
+        console.log(terms)
     },[terms])
     return (
             <>

@@ -1,19 +1,25 @@
+import { type } from "@testing-library/user-event/dist/type";
 import { Children, createContext, Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 import Term from "../components/Term";
 
 type Terms = Term[] ; 
 
+type TermsContextProviderType = {
+    children: React.ReactNode
+}
+type contextType = {
+    terms:Terms | undefined
+    setTerms:Dispatch<SetStateAction<Term[] | undefined>>
+}
 
-export const TermsContext = createContext<Terms>({} as Terms) // should bring the terms from the user local storedge || null 
+export const TermsContext = createContext({} as contextType)
 
 
 
 
-export const TermsContextProvider = ({children}:any) => {
-    const [terms,setTerms]= useState<Term[]>()
+export const TermsContextProvider = ({children}:TermsContextProviderType) => {
+    const [terms,setTerms]= useState<Terms>()
     
-    console.log({children})
-
     return(
     <TermsContext.Provider value={{terms,setTerms}} > 
         {children}

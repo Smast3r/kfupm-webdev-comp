@@ -1,21 +1,31 @@
-import { useEffect } from "react"
+import { getValue } from "@testing-library/user-event/dist/utils"
+import { useEffect, useState } from "react"
+import Course from "./Course"
 
 
 type props= {
     setVisablity:any
     setCourses:any
 }
+type Course = {
+    hours:number,
+    withLab:boolean,
+    name:string,
+}
 
 const AddCourse = (Props:props)=>{
 
+    const [newCourse ,setNewCourse] = useState<Course>()
 
     useEffect(()=>{
         document.getElementById('AddButton')?.focus()
         
     },[])
     const handleSubmition = (Event:Event)=>{
+        Event.preventDefault()
+        console.log(Course)
         Props.setVisablity(false)
-        // todo -- 
+        Props.setCourses((prev:Course[])=>[...prev,newCourse])
 
 
 
@@ -26,7 +36,9 @@ const AddCourse = (Props:props)=>{
                 <form>
                 <div className="relative p-4 w-full h-full md:h-auto flex justify-center"> 
                     <div className="mx-4"> name </div>
-                    <input name="name" type="text" />
+                    <input value="name" type="text"  onChange={(e)=>{
+                        setNewCourse((prev)=> {return {...prev,name:e.target.value}as Course})
+                    }}/>
                 </div>
                 <div className="relative p-4 w-full  h-full md:h-auto flex justify-center"> 
                     <div className="mx-4">Hours</div>
@@ -39,7 +51,7 @@ const AddCourse = (Props:props)=>{
                 </div>
 
                 <div className="flex justify-center">
-                <button id="AddButton" className="w-48 bg-cyan-600 h-10 rounded" onClick={()=>handleSubmition}> Add </button>
+                <button id="AddButton" type="submit" className="w-48 bg-cyan-600 h-10 rounded" onClick={()=>handleSubmition}> Add </button>
                 </div>
                 </form>
             </div>
