@@ -15,15 +15,15 @@ type Course = {
 
 const AddCourse = (Props:props)=>{
 
-    const [newCourse ,setNewCourse] = useState<Course>()
+    const [newCourse ,setNewCourse] = useState<Course>({withLab:false}as Course)
 
     useEffect(()=>{
         document.getElementById('AddButton')?.focus()
         
     },[])
-    const handleSubmition = (Event:Event)=>{
+    const handleSubmition = (Event:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
         Event.preventDefault()
-        console.log(Course)
+        console.log(newCourse)
         Props.setVisablity(false)
         Props.setCourses((prev:Course[])=>[...prev,newCourse])
 
@@ -36,22 +36,27 @@ const AddCourse = (Props:props)=>{
                 <form>
                 <div className="relative p-4 w-full h-full md:h-auto flex justify-center"> 
                     <div className="mx-4"> name </div>
-                    <input value="name" type="text"  onChange={(e)=>{
+                    <input type="text"  onChange={(e)=>{
                         setNewCourse((prev)=> {return {...prev,name:e.target.value}as Course})
                     }}/>
                 </div>
                 <div className="relative p-4 w-full  h-full md:h-auto flex justify-center"> 
                     <div className="mx-4">Hours</div>
-                    <input name="number" type="number"/>
+                    <input type="number" onChange={(e)=>{
+                        setNewCourse((prev)=> {return {...prev,hours:Number(e.target.value)}as Course})
+                    }}/>
                 </div>
                 
                 <div className="relative p-4 w-full  h-full md:h-auto flex justify-center"> 
                     <div className="mx-4">Lab ?</div>
-                    <input name="lab" type="checkbox"/>
+                    <input  type="checkbox" onChange={(e)=>{
+                        setNewCourse((prev)=> {return {...prev,withLab:Boolean(e.target.value)}as Course})
+                    }}
+                     />
                 </div>
 
                 <div className="flex justify-center">
-                <button id="AddButton" type="submit" className="w-48 bg-cyan-600 h-10 rounded" onClick={()=>handleSubmition}> Add </button>
+                <button id="AddButton" type="submit" className="w-48 bg-cyan-600 h-10 rounded" onClick={(e)=>{handleSubmition(e)}}> Add </button>
                 </div>
                 </form>
             </div>
