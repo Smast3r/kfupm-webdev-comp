@@ -1,3 +1,6 @@
+the idea of this project is to build a tool that helps the student to build his blan and move the courses around with the help of DND. In addition the student can print and save the plan as PDF file. However, around 50% is done only. 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
