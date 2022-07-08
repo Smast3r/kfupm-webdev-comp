@@ -12,16 +12,17 @@ type Course = {
   hours: number;
   withLab: boolean;
   name: string;
+  term: number
 };
 type Term = {
   termNumber: number;
-  termCourses?: Course[];
+  termCourses: Course[];
 };
 
 const Term = (props: Props) => {
   const [visablity, setVisablity] = useState(false);
-  const [courses, setCourses] = useState(props.Courses);
-  const { terms, setTerms } = useContext(TermsContext); // i should use the term instade of the things
+  const { terms, setTerms,courses,setCourses } = useContext(TermsContext); // i should use the term instade of the things
+
   const showModal = () => {
     setVisablity(true);
   };
@@ -35,28 +36,25 @@ const Term = (props: Props) => {
         </div>
 
         <>
-          {terms
-            ?.filter((term) => term.termNumber == termNumber)[0]
-            .termCourses?.map((course, index) => {
+          {courses?.map((course:any,index:number) => {
+            console.log(course)
+            if(course.term == termNumber)
               <Course
                 key={index}
                 hours={course.hours}
                 name={course.name}
                 withLab={course.withLab}
               />;
-            })}
+
+          })
+        }
         </>
-        <button
-          className="h-10 w-10 bg-cyan-100"
-          onClick={() => {
-            console.log(courses);
-          }}
-        ></button>
+       
+        
         <AddCourseButton showModal={showModal}>Add Course</AddCourseButton>
       </div>
       {visablity ? (
         <AddCourse
-          setCourses={setCourses}
           setVisablity={setVisablity}
           termNumber={termNumber}
         />

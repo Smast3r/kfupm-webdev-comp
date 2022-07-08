@@ -27,11 +27,11 @@ const PlanContainer = (props:Props)=>{
         }
        }
     const handleChange = (Event:ChangeEvent<HTMLInputElement>)=>{
-        setTerm({...term ,termNumber:Number(Event?.target?.value)})
+        setTerm({termCourses:[],...term ,termNumber:Number(Event?.target?.value)})
     }
     
     useEffect(()=>{
-        console.log(terms)
+        
     },[terms])
     return (
             <>
@@ -45,7 +45,7 @@ const PlanContainer = (props:Props)=>{
             
                 {
                     terms?.map((term:Term,key:number) => (
-                    <Term key={key} number={term.termNumber} Courses={term.termCourses?term.termCourses:[]}/>
+                    <Term key={key} number={term.termNumber} Courses={term.termCourses}/>
                     ))
                 }
                     
